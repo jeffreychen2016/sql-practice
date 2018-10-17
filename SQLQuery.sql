@@ -32,21 +32,23 @@
 --FROM Invoice
 
 --6. Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.
+--SELECT 
+--	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
+--	,Invoice.InvoiceId
+--FROM Invoice 
+--INNER JOIN Customer
+--ON Invoice.CustomerId = Customer.CustomerId
+--INNER JOIN Employee
+--ON Employee.EmployeeId = Customer.SupportRepId
+
+--7. Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
 SELECT 
-	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
-	,Invoice.InvoiceId
-FROM Invoice 
+	Invoice.Total
+	,CustomerName = Customer.FirstName + ' ' + Customer.LastName
+	,Customer.Country
+	,SaleAgent = Employee.FirstName + ' ' +  Employee.LastName
+FROM Invoice
 INNER JOIN Customer
 ON Invoice.CustomerId = Customer.CustomerId
 INNER JOIN Employee
-ON Employee.EmployeeId = Customer.SupportRepId
-
---7. Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
---SELECT 
---	Invoice.Total
---	,FullName = Customer.FirstName + ' ' + Customer.LastName
---	,Customer.Country
-	
---FROM Invoice
---INNER JOIN Customer
---ON Invoice.CustomerId = Customer.CustomerId
+ON Customer.SupportRepId = Employee.EmployeeId
