@@ -140,16 +140,36 @@
 --GROUP BY Invoice.InvoiceId
 
 --18. Provide a query that shows total sales made by each sales agent.
-SELECT 
-	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
-	,SUM(Total)
+--SELECT 
+--	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
+--	,SUM(Total)
+--FROM Invoice
+--INNER JOIN Customer
+--ON Invoice.CustomerId = Customer.CustomerId
+--INNER JOIN Employee
+--ON Employee.EmployeeId = Customer.SupportRepId
+--WHERE Employee.Title = 'Sales Support Agent'
+--GROUP BY Employee.FirstName + ' ' + Employee.LastName
+
+--19. Which sales agent made the most in sales in 2009?
+SELECT top 1
+	Employee.FirstName + ' ' + Employee.LastName AS SalesAgent
+	,SUM(Invoice.Total) AS Total
 FROM Invoice
 INNER JOIN Customer
 ON Invoice.CustomerId = Customer.CustomerId
 INNER JOIN Employee
 ON Employee.EmployeeId = Customer.SupportRepId
-WHERE Employee.Title = 'Sales Support Agent'
+WHERE YEAR(InvoiceDate) = '2009'
 GROUP BY Employee.FirstName + ' ' + Employee.LastName
+ORDER BY SUM(Invoice.Total) DESC
+
+
+
+
+
+
+
 
 
 
