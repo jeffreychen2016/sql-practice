@@ -42,13 +42,18 @@
 --ON Employee.EmployeeId = Customer.SupportRepId
 
 --7. Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
-SELECT 
-	Invoice.Total
-	,CustomerName = Customer.FirstName + ' ' + Customer.LastName
-	,Customer.Country
-	,SaleAgent = Employee.FirstName + ' ' +  Employee.LastName
+--SELECT 
+--	Invoice.Total
+--	,CustomerName = Customer.FirstName + ' ' + Customer.LastName
+--	,Customer.Country
+--	,SaleAgent = Employee.FirstName + ' ' +  Employee.LastName
+--FROM Invoice
+--INNER JOIN Customer
+--ON Invoice.CustomerId = Customer.CustomerId
+--INNER JOIN Employee
+--ON Customer.SupportRepId = Employee.EmployeeId
+
+--8. How many Invoices were there in 2009 and 2011?
+SELECT COUNT(*)
 FROM Invoice
-INNER JOIN Customer
-ON Invoice.CustomerId = Customer.CustomerId
-INNER JOIN Employee
-ON Customer.SupportRepId = Employee.EmployeeId
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2011-01-01'
