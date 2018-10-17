@@ -177,15 +177,21 @@
 --ORDER BY SUM(Invoice.Total) DESC
 
 --21. Provide a query that shows the count of customers assigned to each sales agent.
-SELECT 
-	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
-	,Counts = COUNT(*)
-FROM Employee
-LEFT JOIN Customer
-ON Employee.EmployeeId = Customer.SupportRepId
-WHERE Employee.Title = 'Sales Support Agent'
-GROUP BY Employee.FirstName + ' ' + Employee.LastName
+--SELECT 
+--	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
+--	,Counts = COUNT(*)
+--FROM Employee
+--LEFT JOIN Customer
+--ON Employee.EmployeeId = Customer.SupportRepId
+--WHERE Employee.Title = 'Sales Support Agent'
+--GROUP BY Employee.FirstName + ' ' + Employee.LastName
 
+--22. Provide a query that shows the total sales per country.
+SELECT 
+	BillingCountry
+	,SUM(Total)
+FROM Invoice
+GROUP BY BillingCountry
 
 
 
