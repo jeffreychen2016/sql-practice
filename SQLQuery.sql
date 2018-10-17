@@ -66,9 +66,9 @@
 --GROUP BY YEAR(InvoiceDate)
 
 --10. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
---SELECT COUNT(*)
---FROM InvoiceLine
---WHERE InvoiceId = 37
+SELECT COUNT(*)
+FROM InvoiceLine
+WHERE InvoiceId = 37
 
 --11. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
 --SELECT 
@@ -117,15 +117,27 @@
 --GROUP BY Playlist.Name
 
 --16. Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
+--SELECT 
+--	Track.Name
+--	,Album.Title
+--	,MediaType.Name
+--	,Genre.Name
+--FROM Track
+--INNER JOIN Album
+--ON Track.AlbumId = Album.AlbumId
+--INNER JOIN MediaType
+--ON Track.MediaTypeId = MediaType.MediaTypeId
+--INNER JOIN Genre
+--ON Track.GenreId = Genre.GenreId
+
+--17. Provide a query that shows all Invoices but includes the # of invoice line items.
 SELECT 
-	Track.Name
-	,Album.Title
-	,MediaType.Name
-	,Genre.Name
-FROM Track
-INNER JOIN Album
-ON Track.AlbumId = Album.AlbumId
-INNER JOIN MediaType
-ON Track.MediaTypeId = MediaType.MediaTypeId
-INNER JOIN Genre
-ON Track.GenreId = Genre.GenreId
+	Invoice.InvoiceId
+	,COUNT(*)
+FROM Invoice
+INNER JOIN InvoiceLine
+ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+GROUP BY Invoice.InvoiceId
+
+
+
