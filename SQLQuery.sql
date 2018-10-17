@@ -12,12 +12,17 @@
 --WHERE Country = 'Brazil'
 
 --Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
-SELECT 
-	FullName = FirstName + ' ' + LastName
-	,InvoiceId
-	,InvoiceDate
-	,BillingCountry
-FROM Customer
-INNER JOIN Invoice
-ON Customer.CustomerId = Invoice.CustomerId
-WHERE Country = 'Brazil'
+--SELECT 
+--	FullName = FirstName + ' ' + LastName
+--	,InvoiceId
+--	,InvoiceDate
+--	,BillingCountry
+--FROM Customer
+--INNER JOIN Invoice
+--ON Customer.CustomerId = Invoice.CustomerId
+--WHERE Country = 'Brazil'
+
+--Provide a query showing only the Employees who are Sales Agents.
+--SELECT *
+--FROM Employee
+--WHERE Title = 'Sales Support Agent'
