@@ -71,8 +71,16 @@
 --WHERE InvoiceId = 37
 
 --11. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
-SELECT 
-	InvoiceId
-	,Counts = COUNT(*) 
+--SELECT 
+--	InvoiceId
+--	,Counts = COUNT(*) 
+--FROM InvoiceLine
+--GROUP BY InvoiceId
+
+--12. Provide a query that includes the purchased track name with each invoice line item.
+SELECT
+ Track.Name
+ ,InvoiceLine.InvoiceId
 FROM InvoiceLine
-GROUP BY InvoiceId
+INNER JOIN Track
+ON InvoiceLine.TrackId = Track.TrackId
