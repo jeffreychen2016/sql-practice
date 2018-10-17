@@ -1,4 +1,4 @@
---Provide a query showing Customers (just their full names, customer ID and country) who are not in the US.
+--1. Provide a query showing Customers (just their full names, customer ID and country) who are not in the US.
 --SELECT 
 --FullName = FirstName + ' ' + LastName
 --,CustomerId
@@ -6,12 +6,12 @@
 --FROM Customer
 --WHERE Country <> 'USA'
 
---Provide a query only showing the Customers from Brazil.
+--2. Provide a query only showing the Customers from Brazil.
 --SELECT *
 --FROM Customer
 --WHERE Country = 'Brazil'
 
---Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
+--3. Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
 --SELECT 
 --	FullName = FirstName + ' ' + LastName
 --	,InvoiceId
@@ -22,7 +22,12 @@
 --ON Customer.CustomerId = Invoice.CustomerId
 --WHERE Country = 'Brazil'
 
---Provide a query showing only the Employees who are Sales Agents.
+--4. Provide a query showing only the Employees who are Sales Agents.
 --SELECT *
 --FROM Employee
 --WHERE Title = 'Sales Support Agent'
+
+--5. Provide a query showing a unique/distinct list of billing countries from the Invoice table.
+--SELECT DISTINCT BillingCountry
+--FROM Invoice
+
