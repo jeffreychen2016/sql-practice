@@ -164,18 +164,27 @@
 --GROUP BY Employee.FirstName + ' ' + Employee.LastName
 --ORDER BY SUM(Invoice.Total) DESC
 
---Which sales agent made the most in sales over all?
-SELECT top 1
-	Employee.FirstName + ' ' + Employee.LastName AS SalesAgent
-	,SUM(Invoice.Total) AS Total
-FROM Invoice
-INNER JOIN Customer
-ON Invoice.CustomerId = Customer.CustomerId
-INNER JOIN Employee
-ON Employee.EmployeeId = Customer.SupportRepId
-GROUP BY Employee.FirstName + ' ' + Employee.LastName
-ORDER BY SUM(Invoice.Total) DESC
+--20. Which sales agent made the most in sales over all?
+--SELECT top 1
+--	Employee.FirstName + ' ' + Employee.LastName AS SalesAgent
+--	,SUM(Invoice.Total) AS Total
+--FROM Invoice
+--INNER JOIN Customer
+--ON Invoice.CustomerId = Customer.CustomerId
+--INNER JOIN Employee
+--ON Employee.EmployeeId = Customer.SupportRepId
+--GROUP BY Employee.FirstName + ' ' + Employee.LastName
+--ORDER BY SUM(Invoice.Total) DESC
 
+--21. Provide a query that shows the count of customers assigned to each sales agent.
+SELECT 
+	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
+	,Counts = COUNT(*)
+FROM Employee
+LEFT JOIN Customer
+ON Employee.EmployeeId = Customer.SupportRepId
+WHERE Employee.Title = 'Sales Support Agent'
+GROUP BY Employee.FirstName + ' ' + Employee.LastName
 
 
 
