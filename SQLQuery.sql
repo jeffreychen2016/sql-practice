@@ -54,6 +54,13 @@
 --ON Customer.SupportRepId = Employee.EmployeeId
 
 --8. How many Invoices were there in 2009 and 2011?
-SELECT COUNT(*)
+--SELECT COUNT(*)
+--FROM Invoice
+--WHERE InvoiceDate BETWEEN '2009-01-01' AND '2011-01-01'
+
+--9. What are the respective total sales for each of those years?
+SELECT 
+	YEAR(InvoiceDate)
+	,SUM(Total)
 FROM Invoice
-WHERE InvoiceDate BETWEEN '2009-01-01' AND '2011-01-01'
+GROUP BY YEAR(InvoiceDate)
