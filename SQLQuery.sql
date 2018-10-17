@@ -65,7 +65,14 @@
 --FROM Invoice
 --GROUP BY YEAR(InvoiceDate)
 
---Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
-SELECT COUNT(*)
+--10. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
+--SELECT COUNT(*)
+--FROM InvoiceLine
+--WHERE InvoiceId = 37
+
+--11. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
+SELECT 
+	InvoiceId
+	,Counts = COUNT(*) 
 FROM InvoiceLine
-WHERE InvoiceId = 37
+GROUP BY InvoiceId
