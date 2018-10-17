@@ -66,9 +66,9 @@
 --GROUP BY YEAR(InvoiceDate)
 
 --10. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
-SELECT COUNT(*)
-FROM InvoiceLine
-WHERE InvoiceId = 37
+--SELECT COUNT(*)
+--FROM InvoiceLine
+--WHERE InvoiceId = 37
 
 --11. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
 --SELECT 
@@ -131,13 +131,26 @@ WHERE InvoiceId = 37
 --ON Track.GenreId = Genre.GenreId
 
 --17. Provide a query that shows all Invoices but includes the # of invoice line items.
+--SELECT 
+--	Invoice.InvoiceId
+--	,COUNT(*)
+--FROM Invoice
+--INNER JOIN InvoiceLine
+--ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+--GROUP BY Invoice.InvoiceId
+
+--18. Provide a query that shows total sales made by each sales agent.
 SELECT 
-	Invoice.InvoiceId
-	,COUNT(*)
+	SalesAgent = Employee.FirstName + ' ' + Employee.LastName
+	,SUM(Total)
 FROM Invoice
-INNER JOIN InvoiceLine
-ON Invoice.InvoiceId = InvoiceLine.InvoiceId
-GROUP BY Invoice.InvoiceId
+INNER JOIN Customer
+ON Invoice.CustomerId = Customer.CustomerId
+INNER JOIN Employee
+ON Employee.EmployeeId = Customer.SupportRepId
+WHERE Employee.Title = 'Sales Support Agent'
+GROUP BY Employee.FirstName + ' ' + Employee.LastName
+
 
 
 
