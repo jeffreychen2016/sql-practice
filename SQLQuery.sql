@@ -241,15 +241,27 @@
 --ORDER BY SUM(InvoiceLine.Quantity) DESC
 
 --25. Provide a query that shows the top 5 most purchased songs.
+--SELECT TOP 5
+--	Track.Name
+--	,Total = SUM(InvoiceLine.Quantity)
+--FROM Track
+--INNER JOIN InvoiceLine
+--ON Track.TrackId = InvoiceLine.InvoiceLineId
+--INNER JOIN Invoice
+--ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+--GROUP BY Track.Name
+--ORDER BY SUM(InvoiceLine.Quantity) DESC
 
-SELECT TOP 5
-	Track.Name
-	,Total = SUM(InvoiceLine.Quantity)
-FROM Track
+--26. Provide a query that shows the top 3 best selling artists
+SELECT TOP 3
+	Artist.Name
+	,Total = SUM(InvoiceLine.Quantity) 
+FROM Artist
+INNER JOIN Album
+ON Artist.ArtistId = Album.ArtistId
+INNER JOIN Track
+ON Album.AlbumId = Track.AlbumId
 INNER JOIN InvoiceLine
-ON Track.TrackId = InvoiceLine.InvoiceLineId
-INNER JOIN Invoice
-ON Invoice.InvoiceId = InvoiceLine.InvoiceId
-GROUP BY Track.Name
-ORDER BY SUM(InvoiceLine.Quantity) DESC
-
+ON InvoiceLine.TrackId = Track.TrackId
+GROUP BY Artist.Name
+ORDER BY Total DESC
