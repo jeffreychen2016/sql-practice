@@ -187,12 +187,30 @@
 --GROUP BY Employee.FirstName + ' ' + Employee.LastName
 
 --22. Provide a query that shows the total sales per country.
+--SELECT 
+--	BillingCountry
+--	,SUM(Total)
+--FROM Invoice
+--GROUP BY BillingCountry
+
+--23. Which country's customers spent the most?
 SELECT 
 	BillingCountry
-	,SUM(Total)
+	,Total = SUM(Total) 
 FROM Invoice
 GROUP BY BillingCountry
-
+HAVING SUM(Total) = (
+		SELECT 
+			MAX(Total) 
+		FROM (
+				SELECT 
+					BillingCountry
+					,Total = SUM(Total) 
+				FROM Invoice
+				GROUP BY BillingCountry
+				-- ORDER BY SUM(Total) DESC
+			) AS Derived
+)
 
 
 
