@@ -194,24 +194,51 @@
 --GROUP BY BillingCountry
 
 --23. Which country's customers spent the most?
-SELECT 
-	BillingCountry
-	,Total = SUM(Total) 
-FROM Invoice
-GROUP BY BillingCountry
-HAVING SUM(Total) = (
-		SELECT 
-			MAX(Total) 
-		FROM (
-				SELECT 
-					BillingCountry
-					,Total = SUM(Total) 
-				FROM Invoice
-				GROUP BY BillingCountry
-				-- ORDER BY SUM(Total) DESC
-			) AS Derived
-)
+--SELECT 
+--	BillingCountry
+--	,Total = SUM(Total) 
+--FROM Invoice
+--GROUP BY BillingCountry
+--HAVING SUM(Total) = (
+--		SELECT 
+--			MAX(Total) 
+--		FROM (
+--				SELECT 
+--					BillingCountry
+--					,Total = SUM(Total) 
+--				FROM Invoice
+--				GROUP BY BillingCountry
+--				-- ORDER BY SUM(Total) DESC
+--			) AS Derived
+--)
 
+--24.  Provide a query that shows the most purchased track of 2013.
+
+SELECT 
+	Track.Name
+	,Total = SUM(InvoiceLine.Quantity)
+FROM Track
+INNER JOIN InvoiceLine
+ON Track.TrackId = InvoiceLine.InvoiceLineId
+INNER JOIN Invoice
+ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+WHERE YEAR(Invoice.InvoiceDate) = '2013'
+GROUP BY Track.Name
+HAVING SUM(InvoiceLine.Quantity) = (SELECT 
+										MAX(Total)
+									FROM(
+										SELECT 
+											Track.Name
+											,Total = SUM(InvoiceLine.Quantity)
+										FROM Track
+										INNER JOIN InvoiceLine
+										ON Track.TrackId = InvoiceLine.InvoiceLineId
+										INNER JOIN Invoice
+										ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+										WHERE YEAR(Invoice.InvoiceDate) = '2013'
+										GROUP BY Track.Name
+									) AS Derived)
+ORDER BY SUM(InvoiceLine.Quantity) DESC
 
 
 
