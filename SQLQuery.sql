@@ -253,15 +253,39 @@
 --ORDER BY SUM(InvoiceLine.Quantity) DESC
 
 --26. Provide a query that shows the top 3 best selling artists
-SELECT TOP 3
-	Artist.Name
-	,Total = SUM(InvoiceLine.Quantity) 
-FROM Artist
-INNER JOIN Album
-ON Artist.ArtistId = Album.ArtistId
+--SELECT TOP 3
+--	Artist.Name
+--	,Total = SUM(InvoiceLine.Quantity) 
+--FROM Artist
+--INNER JOIN Album
+--ON Artist.ArtistId = Album.ArtistId
+--INNER JOIN Track
+--ON Album.AlbumId = Track.AlbumId
+--INNER JOIN InvoiceLine
+--ON InvoiceLine.TrackId = Track.TrackId
+--GROUP BY Artist.Name
+--ORDER BY Total DESC
+
+--27. Provide a query that shows the most purchased Media Type.
+SELECT 
+	MediaType.Name
+	,Total = SUM(InvoiceLine.Quantity)
+FROM MediaType
 INNER JOIN Track
-ON Album.AlbumId = Track.AlbumId
+ON MediaType.MediaTypeId = Track.MediaTypeId
 INNER JOIN InvoiceLine
 ON InvoiceLine.TrackId = Track.TrackId
-GROUP BY Artist.Name
-ORDER BY Total DESC
+GROUP BY MediaType.Name
+HAVING SUM(InvoiceLine.Quantity) = (SELECT MAX(Total)
+										FROM 
+										(
+											SELECT 
+												MediaType.Name
+												,Total = SUM(InvoiceLine.Quantity)
+											FROM MediaType
+											INNER JOIN Track
+											ON MediaType.MediaTypeId = Track.MediaTypeId
+											INNER JOIN InvoiceLine
+											ON InvoiceLine.TrackId = Track.TrackId
+											GROUP BY MediaType.Name
+										) AS Derived)
