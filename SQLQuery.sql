@@ -214,7 +214,35 @@
 
 --24.  Provide a query that shows the most purchased track of 2013.
 
-SELECT 
+--SELECT 
+--	Track.Name
+--	,Total = SUM(InvoiceLine.Quantity)
+--FROM Track
+--INNER JOIN InvoiceLine
+--ON Track.TrackId = InvoiceLine.InvoiceLineId
+--INNER JOIN Invoice
+--ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+--WHERE YEAR(Invoice.InvoiceDate) = '2013'
+--GROUP BY Track.Name
+--HAVING SUM(InvoiceLine.Quantity) = (SELECT 
+--										MAX(Total)
+--									FROM(
+--										SELECT 
+--											Track.Name
+--											,Total = SUM(InvoiceLine.Quantity)
+--										FROM Track
+--										INNER JOIN InvoiceLine
+--										ON Track.TrackId = InvoiceLine.InvoiceLineId
+--										INNER JOIN Invoice
+--										ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+--										WHERE YEAR(Invoice.InvoiceDate) = '2013'
+--										GROUP BY Track.Name
+--									) AS Derived)
+--ORDER BY SUM(InvoiceLine.Quantity) DESC
+
+--25. Provide a query that shows the top 5 most purchased songs.
+
+SELECT TOP 5
 	Track.Name
 	,Total = SUM(InvoiceLine.Quantity)
 FROM Track
@@ -222,24 +250,6 @@ INNER JOIN InvoiceLine
 ON Track.TrackId = InvoiceLine.InvoiceLineId
 INNER JOIN Invoice
 ON Invoice.InvoiceId = InvoiceLine.InvoiceId
-WHERE YEAR(Invoice.InvoiceDate) = '2013'
 GROUP BY Track.Name
-HAVING SUM(InvoiceLine.Quantity) = (SELECT 
-										MAX(Total)
-									FROM(
-										SELECT 
-											Track.Name
-											,Total = SUM(InvoiceLine.Quantity)
-										FROM Track
-										INNER JOIN InvoiceLine
-										ON Track.TrackId = InvoiceLine.InvoiceLineId
-										INNER JOIN Invoice
-										ON Invoice.InvoiceId = InvoiceLine.InvoiceId
-										WHERE YEAR(Invoice.InvoiceDate) = '2013'
-										GROUP BY Track.Name
-									) AS Derived)
 ORDER BY SUM(InvoiceLine.Quantity) DESC
-
-
-
 
