@@ -267,25 +267,42 @@
 --ORDER BY Total DESC
 
 --27. Provide a query that shows the most purchased Media Type.
-SELECT 
-	MediaType.Name
-	,Total = SUM(InvoiceLine.Quantity)
-FROM MediaType
-INNER JOIN Track
-ON MediaType.MediaTypeId = Track.MediaTypeId
-INNER JOIN InvoiceLine
-ON InvoiceLine.TrackId = Track.TrackId
-GROUP BY MediaType.Name
-HAVING SUM(InvoiceLine.Quantity) = (SELECT MAX(Total)
-										FROM 
-										(
-											SELECT 
-												MediaType.Name
-												,Total = SUM(InvoiceLine.Quantity)
-											FROM MediaType
-											INNER JOIN Track
-											ON MediaType.MediaTypeId = Track.MediaTypeId
-											INNER JOIN InvoiceLine
-											ON InvoiceLine.TrackId = Track.TrackId
-											GROUP BY MediaType.Name
-										) AS Derived)
+--SELECT 
+--	MediaType.Name
+--	,Total = SUM(InvoiceLine.Quantity)
+--FROM MediaType
+--INNER JOIN Track
+--ON MediaType.MediaTypeId = Track.MediaTypeId
+--INNER JOIN InvoiceLine
+--ON InvoiceLine.TrackId = Track.TrackId
+--GROUP BY MediaType.Name
+--HAVING SUM(InvoiceLine.Quantity) = (SELECT MAX(Total)
+--										FROM 
+--										(
+--											SELECT 
+--												MediaType.Name
+--												,Total = SUM(InvoiceLine.Quantity)
+--											FROM MediaType
+--											INNER JOIN Track
+--											ON MediaType.MediaTypeId = Track.MediaTypeId
+--											INNER JOIN InvoiceLine
+--											ON InvoiceLine.TrackId = Track.TrackId
+--											GROUP BY MediaType.Name
+--										) AS Derived)
+
+
+-- Pivot
+SELECT *
+FROM (
+		select
+			Total
+			,[year] = year(invoiceDate)
+			-- ,[ColumnSequence] = 'year' + CAST(ROW_NUMBER() over (partition by [total] order by [total]) as varchar(10))
+			from Invoice
+		where InvoiceDate like '%2009%' or InvoiceDate like '%2011%'
+	 ) Temp
+PIVOT
+(
+	SUM(total)
+	FOR [year] IN ([2009],[2011])
+) Piv
